@@ -14,5 +14,5 @@ public interface UserService {
 
 	boolean userExists(User user);
 
-	void incrementNumOfNotificationsPushed(User user);
+	boolean incrementNumOfNotificationsPushed(User user);
 }

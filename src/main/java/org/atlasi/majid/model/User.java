@@ -5,8 +5,8 @@ import java.util.Date;
 public class User {
 
 	private String userName;
-	private final String accessToken;
-	private final Date creationDate;
+	private  String accessToken;
+	private  Date creationDate;
 	private long numOfNotificationsPushed = 0;
 
 	public User(String userName, String accessToken) {
@@ -32,8 +32,9 @@ public class User {
 		return creationDate;
 	}
 
-    public void incrementNumOfNotificationsPushed() {
+    public boolean incrementNumOfNotificationsPushed() {
     	setNumOfNotificationsPushed(getNumOfNotificationsPushed() + 1);
+    	return true;
     }
 
 	public long getNumOfNotificationsPushed() {
