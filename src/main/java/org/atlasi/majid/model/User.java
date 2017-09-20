@@ -2,6 +2,9 @@ package org.atlasi.majid.model;
 
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class User {
 
 	private String userName;
@@ -43,5 +46,18 @@ public class User {
 
 	public void setNumOfNotificationsPushed(long numOfNotificationsPushed) {
 		this.numOfNotificationsPushed = numOfNotificationsPushed;
+	}
+	
+	public JSONObject userCreatedToJson() {
+		JSONObject jsonObject = new JSONObject();
+		try {
+			jsonObject.put(userName, getUserName());
+			jsonObject.put(accessToken, getAccessToken());
+			jsonObject.put("creationTime", getCreationDate().toString());
+			jsonObject.put("numOfNotificationsPushed", new Long(getNumOfNotificationsPushed()).toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return jsonObject;
 	}
 }

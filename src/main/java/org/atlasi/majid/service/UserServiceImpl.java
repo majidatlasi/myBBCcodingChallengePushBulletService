@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.atlasi.majid.model.User;
+import org.springframework.stereotype.Service;
 
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
 	private List<User> userList = new ArrayList<User>();
