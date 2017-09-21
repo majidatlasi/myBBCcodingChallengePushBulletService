@@ -1,12 +1,9 @@
 package org.atlasi.majid.controller;
 
 import java.util.List;
-import java.util.Map;
-
 import org.atlasi.majid.model.PushMessage;
 import org.atlasi.majid.model.User;
 import org.atlasi.majid.service.UserService;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/")
@@ -26,7 +22,7 @@ public class MainController {
 	UserService userService;
 
 	// Create a User
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "user/", method = RequestMethod.POST)
 	public ResponseEntity<?> createUser(@RequestBody User user) {
 		if (userService.userExists(user)) {
@@ -42,6 +38,7 @@ public class MainController {
 	}
 
 	// Retrieve all registered users
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/user/", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> listAllUsers() {
 		List<User> users = userService.findAllUsers();
@@ -52,7 +49,7 @@ public class MainController {
 	}
 
 	// Push notification
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "push/", method = RequestMethod.POST)
 	public ResponseEntity<?> pushNotificationToUser(@RequestBody PushMessage pushMessage) {
 
