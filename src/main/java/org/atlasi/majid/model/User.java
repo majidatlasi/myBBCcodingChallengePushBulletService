@@ -19,7 +19,7 @@ public class User {
 
 	public User(String username, String accesstoken) {
 		this.setUserName(username);
-		this.setAccessToken(accessToken);
+		this.setAccessToken(accesstoken);
 	}
 
 	public String getUserName() {

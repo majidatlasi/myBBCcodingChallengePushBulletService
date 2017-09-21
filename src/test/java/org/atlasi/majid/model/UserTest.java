@@ -2,9 +2,6 @@ package org.atlasi.majid.model;
 
 import static org.junit.Assert.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -50,9 +47,8 @@ public class UserTest {
 
 	@Test
 	public void testGetCreationDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
-		
-		assertEquals(sdf.format(new Date()), sdf.format(user.getCreationDate()));
+		User user1 = new User();
+		assertNotNull(user1.getCreationDate());
 	}
 
 }

@@ -12,6 +12,15 @@ public class UserServiceImplTest {
 	private static final String accessToken1 = "XYZ1";
 	private static final String userName2 = "MyName2";
 	private static final String accessToken2 = "XYZ2";
+	private static final String userName3 = "MyName3";
+	private static final String accessToken3 = "XYZ3";
+	private static final String userName4 = "MyName4";
+	private static final String accessToken4 = "XYZ4";
+
+	User user1;
+	User user2;
+	User user3;
+	User user4;
 
 	private UserService userService;
 
@@ -24,29 +33,33 @@ public class UserServiceImplTest {
 	public void tearDown() throws Exception {
 	}
 
-	 @Test
-	 public void testSaveUser() {
-			User user = new User(userName1, accessToken1);
-			userService.saveUser(user);
-			Assert.assertEquals(user, userService.findByName(userName1));
-	 }
+	@Test
+	public void testSaveUser() {
+		user1 = new User(userName1, accessToken1);
+		userService.saveUser(user1);
+		Assert.assertEquals(user1, userService.findByName(userName1));
+	}
 
 	@Test
 	public void testFindByName() throws Exception {
-		User user = new User(userName1, accessToken1);
-		userService.saveUser(user);
-		Assert.assertEquals(user, userService.findByName(userName1));
+		user2 = new User(userName2, accessToken2);
+		userService.saveUser(user2);
+		Assert.assertEquals(user2, userService.findByName(userName2));
 	}
 
-	 @Test
-	 public void testFindAllUsers() {
-			User user1 = new User(userName1, accessToken1);
-			userService.saveUser(user1);
-			User user2 = new User(userName2, accessToken2);
-			userService.saveUser(user2);
-			Assert.assertEquals(2, userService.findAllUsers().size());
-	 }
-	
+	@Test
+	public void testFindAllUsers() {
+		user3 = new User(userName3, accessToken3);
+		user4 = new User(userName4, accessToken4);
+		
+		UserService userSer = new UserServiceImpl();
+		userSer.findAllUsers().size();
+		userSer.saveUser(user3);
+		userSer.findAllUsers().size();
+		userSer.saveUser(user4);
+		Assert.assertEquals(2, userSer.findAllUsers().size());
+	}
+
 	@Test
 	public void testUserExists() {
 		User user1 = new User(userName1, accessToken1);

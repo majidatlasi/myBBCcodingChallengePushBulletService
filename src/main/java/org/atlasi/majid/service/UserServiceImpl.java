@@ -2,6 +2,7 @@ package org.atlasi.majid.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.atlasi.majid.model.User;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-	private static List<User> userList = new ArrayList<User>();
+	private List<User> userList = new Vector<User>();
 	
 	@Override
 	public User findByName(String name) {
