@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-	private List<User> userList = new ArrayList<User>();
+	private static List<User> userList = new ArrayList<User>();
 	
 	@Override
 	public User findByName(String name) {

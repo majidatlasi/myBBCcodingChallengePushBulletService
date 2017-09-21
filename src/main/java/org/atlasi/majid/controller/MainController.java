@@ -25,20 +25,17 @@ public class MainController {
     // Create a User
     @SuppressWarnings("unchecked")
 	@RequestMapping(value = "user/", method = RequestMethod.POST)
-    public ResponseEntity<?> createUser(@RequestBody Map<String, Object> userData, UriComponentsBuilder ucBuilder) {
-        String userName = (String) userData.get("userName");
-        String accessToken = (String) userData.get("accessToken");
-        System.out.println("************userName is " + userName);
-        System.out.println("************accessToken is " + accessToken);
-        User user = new User(userName, accessToken);
+    public ResponseEntity<?> createUser(@RequestBody User user) {
     	if (userService.userExists(user)) {
             return new ResponseEntity("Unable to create user already exist.", HttpStatus.CONFLICT);
         }
+        String userName = user.getUserName();
+    	
         userService.saveUser(user);
- 
+        user = userService.findByName(userName); 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/user/{userName}").buildAndExpand(user.getUserName()).toUri());
-        return new ResponseEntity<JSONObject>(user.userCreatedToJson(), HttpStatus.CREATED);
+        headers.add("Content-Type", "application/json");
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
 	

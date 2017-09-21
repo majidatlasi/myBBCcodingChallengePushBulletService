@@ -1,22 +1,27 @@
 package org.atlasi.majid.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+//import org.json.JSONException;
+//import org.json.JSONObject;
 
 public class User {
 
 	private String userName;
-	private  String accessToken;
-	private  Date creationDate;
+	private String accessToken;
+	private String creationDate;
 	private long numOfNotificationsPushed = 0;
 
-	public User(String userName, String accessToken) {
-		super();
-		this.setUserName(userName);
-		this.accessToken = accessToken;
-		this.creationDate = new Date(); 
+	public User() {
+		String pattern = "yyyy-MM-dd'T'HH:mm:ss";
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		this.setCreationDate(sdf.format(new Date()));
+	}
+
+	public User(String username, String accesstoken) {
+		this.setUserName(username);
+		this.setAccessToken(accessToken);
 	}
 
 	public String getUserName() {
@@ -31,14 +36,22 @@ public class User {
 		return accessToken;
 	}
 
-	public Date getCreationDate() {
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+
+	public String getCreationDate() {
 		return creationDate;
 	}
 
-    public boolean incrementNumOfNotificationsPushed() {
-    	setNumOfNotificationsPushed(getNumOfNotificationsPushed() + 1);
-    	return true;
-    }
+	public void setCreationDate(String creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public boolean incrementNumOfNotificationsPushed() {
+		setNumOfNotificationsPushed(getNumOfNotificationsPushed() + 1);
+		return true;
+	}
 
 	public long getNumOfNotificationsPushed() {
 		return numOfNotificationsPushed;
@@ -47,17 +60,5 @@ public class User {
 	public void setNumOfNotificationsPushed(long numOfNotificationsPushed) {
 		this.numOfNotificationsPushed = numOfNotificationsPushed;
 	}
-	
-	public JSONObject userCreatedToJson() {
-		JSONObject jsonObject = new JSONObject();
-		try {
-			jsonObject.put(userName, getUserName());
-			jsonObject.put(accessToken, getAccessToken());
-			jsonObject.put("creationTime", getCreationDate().toString());
-			jsonObject.put("numOfNotificationsPushed", new Long(getNumOfNotificationsPushed()).toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return jsonObject;
-	}
+
 }
