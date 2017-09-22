@@ -1,7 +1,9 @@
 package org.atlasi.majid.controller;
 
 import java.util.List;
-import org.atlasi.majid.model.PushMessage;
+
+import org.atlasi.majid.model.PushBulletMessageBody;
+import org.atlasi.majid.model.PushMessageBody;
 import org.atlasi.majid.model.User;
 import org.atlasi.majid.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,7 @@ public class MainController {
 	// Push notification
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "push/", method = RequestMethod.POST)
-	public ResponseEntity<?> pushNotificationToUser(@RequestBody PushMessage pushMessage) {
+	public ResponseEntity<?> pushNotificationToUser(@RequestBody PushMessageBody pushMessage) {
 
 		User user = userService.findByName(pushMessage.getUserName());
 
@@ -60,11 +62,16 @@ public class MainController {
 			headers.add("Content-Type", "application/json");
 			headers.add("Access-Token", user.getAccessToken());
 
+			PushBulletMessageBody pushBulletMessageBody = new PushBulletMessageBody();
+			pushBulletMessageBody.setTitle("New Note");
+			pushBulletMessageBody.setType("note");
+			pushBulletMessageBody.setBody(pushMessage.getPushMessage());
+			
 			RestTemplate restTemplate = new RestTemplate();
-			ResponseEntity<String> response = restTemplate.postForEntity("https://api.pushbullet.com/v2/pushes", pushMessage.getPushMessage(), String.class);
+			ResponseEntity<PushBulletMessageBody> response = restTemplate.postForEntity("https://api.pushbullet.com/v2/pushes", pushBulletMessageBody, PushBulletMessageBody.class);
 			HttpStatus status = response.getStatusCode();
 			if (status == HttpStatus.OK) {
-				return new ResponseEntity<PushMessage>(pushMessage, HttpStatus.OK);
+				return new ResponseEntity<PushBulletMessageBody>(pushBulletMessageBody, HttpStatus.OK);
 				
 			} 
 

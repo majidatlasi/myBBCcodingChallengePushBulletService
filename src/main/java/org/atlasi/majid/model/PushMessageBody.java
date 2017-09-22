@@ -1,6 +1,6 @@
 package org.atlasi.majid.model;
 
-public class PushMessage {
+public class PushMessageBody {
 	String userName;
 	String pushMessage;
 
